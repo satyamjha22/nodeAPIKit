@@ -9,6 +9,16 @@ const signupSchema = Joi.object({
     })
 });
 
+const signinSchema = Joi.object({
+    email: Joi.string().min(6).max(60).required().email({
+        tlds: { allow: ['com', 'net'] } 
+    }),
+    password: Joi.string().min(6).required().pattern(new RegExp('^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]+$')).messages({
+        'string.pattern.base': 'Password must be alphanumeric and between 6 to 30 characters long'
+    })
+});
+
 module.exports = {
-    signupSchema
+    signupSchema,
+    signinSchema
 };
