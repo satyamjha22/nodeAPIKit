@@ -18,7 +18,17 @@ const signinSchema = Joi.object({
     })
 });
 
+const verifyCodeSchema = Joi.object({
+    email: Joi.string().min(6).max(60).required().email({
+        tlds: { allow: ['com', 'net'] }
+    }),
+    providedCode: Joi.number().min(100000).max(999999).required().messages({
+        'number.base': 'Verification code must be a 6-digit number'
+    })
+});
+
 module.exports = {
     signupSchema,
-    signinSchema
+    signinSchema,
+    verifyCodeSchema
 };
