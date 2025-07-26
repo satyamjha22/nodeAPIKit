@@ -67,7 +67,7 @@ A Node.js REST API backend built with Express and MongoDB, featuring user authen
    - Get from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) or your local MongoDB.
    - Example:  
      ```
-     mongodb+srv://<username>:<password>@cluster0.mongodb.net/<dbname>?retryWrites=true&w=majority
+     mongodb+srv://...........
      ```
 
    #### 3. `TOKEN_SECRET`
