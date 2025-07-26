@@ -52,10 +52,54 @@ A Node.js REST API backend built with Express and MongoDB, featuring user authen
    ```
    PORT=8000
    MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
+   TOKEN_SECRET=your_jwt_secret
    NODE_CODE_SENDING_EMAIL_ADDRESS=your_email@gmail.com
    NODE_CODE_SENDING_EMAIL_PASSWORD=your_app_password
    HMAC_VERIFICATION_CODE_SECRET=your_hmac_secret
+   ```
+
+   ### How to Get and Set Environment Variables
+
+   #### 1. `PORT`
+   - The port number your Node.js server will listen on (default: `8000`).
+
+   #### 2. `MONGO_URI`
+   - Get from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) or your local MongoDB.
+   - Example:  
+     ```
+     mongodb+srv://<username>:<password>@cluster0.mongodb.net/<dbname>?retryWrites=true&w=majority
+     ```
+
+   #### 3. `TOKEN_SECRET`
+   - Generate a random string (at least 32 characters).
+   - Example:  
+     ```
+     TOKEN_SECRET=your_random_secret_key
+     ```
+
+   #### 4. `NODE_CODE_SENDING_EMAIL_ADDRESS`
+   - Your Gmail address for sending verification emails.
+
+   #### 5. `NODE_CODE_SENDING_EMAIL_PASSWORD`
+   - Gmail App Password (not your regular password).
+   - Generate from [Google Account Security](https://myaccount.google.com/security) > App passwords.
+
+   #### 6. `HMAC_VERIFICATION_CODE_SECRET`
+   - Generate a random string (at least 32 characters).
+   - Example:  
+     ```
+     HMAC_VERIFICATION_CODE_SECRET=another_random_secret
+     ```
+
+   #### Example `.env` File
+
+   ```env
+   PORT=8000
+   MONGO_URI=mongodb+srv://username:password@cluster0.mongodb.net/dbname?retryWrites=true&w=majority
+   TOKEN_SECRET=your_random_secret_key
+   NODE_CODE_SENDING_EMAIL_ADDRESS=yourname@gmail.com
+   NODE_CODE_SENDING_EMAIL_PASSWORD=your_app_password
+   HMAC_VERIFICATION_CODE_SECRET=another_random_secret
    ```
 
 4. **Run the app**
