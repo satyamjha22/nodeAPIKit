@@ -10,7 +10,6 @@ exports.identifier = (req, res, next) => {
     if (!token) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
-console.log('Token:', token);
     try {
         const jwtVerified = jwt.verify(token, process.env.TOKEN_SECRET);
         if (jwtVerified) {
