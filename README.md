@@ -95,7 +95,7 @@ A Node.js REST API backend built with Express and MongoDB, featuring user authen
 
    ```env
    PORT=8000
-   MONGO_URI=mongodb+srv://username:password@cluster0.mongodb.net/dbname?retryWrites=true&w=majority
+   MONGO_URI=mongodb+srv://...........
    TOKEN_SECRET=your_random_secret_key
    NODE_CODE_SENDING_EMAIL_ADDRESS=yourname@gmail.com
    NODE_CODE_SENDING_EMAIL_PASSWORD=your_app_password
