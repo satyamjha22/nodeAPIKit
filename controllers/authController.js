@@ -1,5 +1,5 @@
 const e = require('express');
-const { signupSchema, signinSchema, verifyCodeSchema } = require('../middlewares/validator');
+const { signupSchema, signinSchema, verifyCodeSchema, changePasswordSchema } = require('../middlewares/validator');
 const User = require('../models/userModal');
 const { doHash, doHashValidate, hmacProcess } = require('../utils/hashing');
 const jwt = require('jsonwebtoken');
@@ -185,4 +185,34 @@ exports.verifyVerificationCode = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
 
     }
+}
+
+exports.changePassword = async (req, res) => {
+    const {oldPassword, newPassword } = req.body;
+    const { userId, verified } = req.user;
+    try {
+        const { error, value } = changePasswordSchema.validate({ oldPassword, newPassword });
+        if (error) {
+            return res.status(401).json({ success: false, message: error.details[0].message });
+        }
+        if (!verified) {
+            return res.status(401).json({ success: false, message: 'You are not verified user' });
+        }
+        const existingUser = await User.findOne({ _id: userId }).select('+password');
+        if (!existingUser) {
+            return res.status(401).json({ success: false, message: 'User does not exist' });
+        }
+        const isOldPasswordValid = await doHashValidate(oldPassword, existingUser.password);
+        if (!isOldPasswordValid) {
+            return res.status(401).json({ success: false, message: 'Invalid old password' });
+        }
+        const hashedNewPassword = await doHash(newPassword, 12);
+        existingUser.password = hashedNewPassword;
+        await existingUser.save();
+        return res.status(200).json({ success: true, message: 'Password changed successfully' });
+    } catch (error) {
+        console.error('Error changing password:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+ 
 }
